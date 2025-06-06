@@ -1,0 +1,114 @@
+&lt;immersive type="code" title="Código para index.html">
+
+HTML
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;pt-br&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Treino de Xadrez&lt;/title&gt;
+
+<link rel="stylesheet"
+href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
+integrity="sha384-q94+BZSKL_iQlF9gU12/sp829i3IjElQSU4/G6sgTBdeaOZG/LinSM6B7a/DdwVn"
+crossorigin="anonymous">
+
+<style>
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+background-color: #312e2b;
+color: #f0d9b5;
+margin: 0;
+padding: 20px;
+box-sizing: border-box;
+}
+.container {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+max-width: 500px; /* Largura máxima do tabuleiro */
+}
+#meu-tabuleiro {
+width: 100%;
+max-width: 500px;
+}
+.info-painel {
+background-color: #262421;
+padding: 15px;
+border-radius: 8px;
+margin-top: 20px;
+width: 100%;
+max-width: 500px;
+box-sizing: border-box;
+text-align: center;
+}
+h1 {
+color: #fff;
+margin-bottom: 20px;
+}
+p {
+margin: 5px 0;
+}
+span#status, span#fen, span#pgn {
+font-family: 'Courier New', Courier, monospace;
+background-color: #3d3b38;
+padding: 2px 5px;
+border-radius: 4px;
+word-break: break-all;
+}
+button {
+background-color: #4a734c;
+color: white;
+border: none;
+padding: 10px 20px;
+margin-top: 15px;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+transition: background-color 0.3s;
+}
+button:hover {
+background-color: #5c8f5f;
+}
+</style>
+
+
+&lt;/head&gt;
+&lt;body&gt;
+
+<div class="container">
+<h1>Exercícios de Xadrez</h1>
+
+<div id="meu-tabuleiro"></div>
+
+<div class="info-painel">
+    <p>Status: <span id="status"></span></p>
+    <p>FEN: <span id="fen"></span></p>
+    <p>PGN: <span id="pgn"></span></p>
+    <button id="reiniciar-btn">Reiniciar Posição</button>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
+crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
+integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
+crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.min.js"></script>
+
+<script src="script.js"></script>
+
+
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;/immersive>
