@@ -1,6 +1,3 @@
-// A &quot;trava de segurança&quot;: Garante que o código só roda depois que a página inteira carregou.
-$(document).ready(function() {
-
 // Inicializamos as variáveis que vamos usar
 var board = null;
 var game = new Chess();
@@ -89,3 +86,7 @@ updateStatus();
 
 // Atualiza o status inicial
 updateStatus();
+
+
+}); // Fim da "trava de segurança"
+
