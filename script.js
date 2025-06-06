@@ -1,10 +1,8 @@
 // Inicializamos as variáveis que vamos usar
-var board = null;                 // O objeto do tabuleiro visual
-var game = new Chess();           // O objeto da lógica do xadrez, começa com a posição inicial
-var whiteSquareGrey = '#a9a9a9';  // Cor para destacar casas claras
-var blackSquareGrey = '#696969';  // Cor para destacar casas escuras
-
-// --- FUNÇÕES AUXILIARES ---
+var board = null;
+var game = new Chess();
+var whiteSquareGrey = '#a9a9a9';
+var blackSquareGrey = '#696969';
 
 function removeGreySquares() {
     $('#meu-tabuleiro .square-55d63').css('background', '');
@@ -19,45 +17,28 @@ function greySquare(square) {
     $square.css('background', background);
 }
 
-// --- LÓGICA DE MOVIMENTO DAS PEÇAS ---
-
-// Chamado quando uma peça é solta no tabuleiro
 function onDrop(source, target) {
     removeGreySquares();
-
-    // Tenta fazer o movimento usando a lógica do chess.js
     var move = game.move({
         from: source,
         to: target,
-        promotion: 'q' // NOTA: Sempre promove para uma Dama por simplicidade
+        promotion: 'q'
     });
-
-    // Se o movimento for ilegal, volta a peça para a posição original
     if (move === null) return 'snapback';
-    
-    // Atualiza o painel de informações
     updateStatus();
 }
 
-// Chamado quando uma peça é pega para arrastar
 function onDragStart(source, piece, position, orientation) {
-    // Não deixa mover peças se o jogo acabou
     if (game.game_over()) return false;
-
-    // Só deixa mover as peças do jogador da vez
     if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
         (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
         return false;
     }
 }
 
-// Chamado após um movimento legal ser feito
 function onSnapEnd() {
-    // Atualiza o tabuleiro para a posição atual da lógica do jogo
     board.position(game.fen());
 }
-
-// --- ATUALIZAÇÃO DO PAINEL DE INFORMAÇÕES ---
 
 function updateStatus() {
     var status = '';
@@ -66,48 +47,39 @@ function updateStatus() {
         moveColor = 'Pretas';
     }
 
-    // Verifica se é xeque-mate
     if (game.in_checkmate()) {
         status = 'Fim de jogo, ' + moveColor + ' em xeque-mate.';
-    }
-    // Verifica se é empate
-    else if (game.in_draw()) {
+    } else if (game.in_draw()) {
         status = 'Fim de jogo, empate.';
-    }
-    // Se o jogo continua, informa de quem é a vez
-    else {
+    } else {
         status = 'É a vez das ' + moveColor;
-        // Verifica se o jogador está em xeque
         if (game.in_check()) {
             status += ', ' + moveColor + ' estão em xeque.';
         }
     }
     
-    // Atualiza as informações na tela
     $('#status').html(status);
     $('#fen').html(game.fen());
     $('#pgn').html(game.pgn());
 }
 
 // --- CONFIGURAÇÃO INICIAL DO TABULEIRO ---
-
 var config = {
     draggable: true,
-    position: 'start', // Começa na posição inicial padrão
+    position: 'start',
+    // ADIÇÃO IMPORTANTE ABAIXO: Diz onde buscar as imagens das peças
+    pieceTheme: 'https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/img/chesspieces/wikipedia/{piece}.png',
     onDragStart: onDragStart,
     onDrop: onDrop,
     onSnapEnd: onSnapEnd
 };
 
-// Renderiza o tabuleiro na div #meu-tabuleiro
 board = Chessboard('meu-tabuleiro', config);
 
-// Lógica para o botão de reiniciar
 $('#reiniciar-btn').on('click', function() {
-    game.reset();          // Reseta a lógica do jogo para a posição inicial
-    board.start();         // Reseta o tabuleiro visual
-    updateStatus();        // Atualiza as informações
+    game.reset();
+    board.start();
+    updateStatus();
 });
 
-// Atualiza o status inicial
 updateStatus();
